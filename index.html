@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script type="text/javascript" src="style/index.js"></script>
+    <script type="text/javascript" src="style/jquery-3.6.1.js"></script>
+
+    <!-- CDN do chartjs-->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script> -->
+
+
+    <title>Dashboard Analytics GEPEF</title>
+
+</head>
+
+<body>
+
+    <!--  Dashboard EMAILS RECEBIDOS - GRÁFICO DE PIZZA  --> 
+
+    <h1>Dashboard Analytics GEPEF</h1>
+
+  
+    <section class="container">
+
+     <!-- GRÁFICOS SUPERIORES -->
+        
+        
+        <div class="chartbox">
+        <canvas id="myChart"></canvas>
+        </div>
+  
+        <div class="chartbox2">
+        <canvas id="myChart2"></canvas>
+        </div>
+
+        <div class="chartbox3">
+            <canvas id="myChart3"></canvas>
+         </div>
+
+      <!-- GRÁFICOS INFERIORES-->
+
+        <div class="chartbox4">
+        <canvas id="myChart4"></canvas>
+        </div>
+     
+        <div class="chartbox5">
+        <canvas id="myChart5"></canvas>
+        </div>
+
+        <div class="chartbox6">
+        <canvas id="myChart6"></canvas>
+        </div>
+        
+        
+        <input type="file" id="uploadfile" accept=".csv">
+        <button id="uploadconfirm">Upload File</button>
+        <hr>
+
+       
+        <button onclick="updateChart('ECC')">ECC</button>
+        <button onclick="updateChart('CONTABILIDADE')">CONTABILIDADE</button>
+        <button onclick="updateChart('IPREV')">IPREV</button>
+        <button onclick="updateChart('PECUNIA')">PECÚNIAe</button>
+        <button onclick="updateChart('PORTABILIDADE')">PORTABILIDADE</button>
+        <button onclick="updateChart('ESTORNO')">ESTORNO</button>
+        <button onclick="updateChart('PROVISIONAMENTO')">PROVISIONAMENTO</button>
+        <button onclick="updateChart('BAIXA')">BAIXA</button>
+        <button onclick="updateChart('DUVIDABRBSERV')">DUVIDA BRB SERV</button>
+        <button onclick="updateChart('OUTROS')">OUTROS</button>
+        <button onclick="updateChart('TOTAL')">TOTAL</button>
+
+
+           
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+
+    <script>
+
+
+
+
+// PRIMEIRO GRÁFICO
+
+     // setup 
+    const data = {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [{
+        label: 'Weekly Sales',
+        data: [18, 12, 6, 9, 12, 3, 9],
+        backgroundColor: [
+          'rgba(255, 26, 104, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(0, 0, 0, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 26, 104, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(0, 0, 0, 1)'
+        ],
+        borderWidth: 1
+      }]
+    };
+
+
+    // config 
+    const config = {
+      type: 'pie',
+      data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    // render init block
+    const myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+
+
+// SEGUNDO GRÁFICO
+
+  // setup 
+  const data2 = {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [{
+        label: 'Weekly Sales',
+        data: [18, 12, 6, 9, 12, 3, 9],
+        backgroundColor: [
+          'rgba(255, 26, 104, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(0, 0, 0, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 26, 104, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(0, 0, 0, 1)'
+        ],
+        borderWidth: 1
+      }]
+    };
+
+
+    // config 
+    const config2 = {
+      type: 'pie',
+      data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    // render init block
+    const myChart2 = new Chart(
+      document.getElementById('myChart2'),
+      config2
+    );
+
+// TERCEIRO GRÁFICO
+
+ // setup 
+ const data3 = {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [{
+        label: 'Weekly Sales',
+        data: [18, 12, 6, 9, 12, 3, 9],
+        backgroundColor: [
+          'rgba(255, 26, 104, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(0, 0, 0, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 26, 104, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(0, 0, 0, 1)'
+        ],
+        borderWidth: 1
+      }]
+    };
+
+
+    // config 
+    const config3 = {
+      type: 'pie',
+      data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    // render init block
+    const myChart3 = new Chart(
+      document.getElementById('myChart3'),
+      config
+    );
+
+
+
+    //                     GRÁFICOS DE BAIXO
+
+
+
+    // PRIMEIRO GRÁFICO
+
+        // setup 
+        const data4 = {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [{
+        label: 'Weekly Sales',
+        data: [18, 12, 6, 9, 12, 3, 9],
+        backgroundColor: [
+          'rgba(255, 26, 104, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(0, 0, 0, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 26, 104, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(0, 0, 0, 1)'
+        ],
+        borderWidth: 1
+      }]
+    };
+
+
+    // config 
+    const config4 = {
+      type: 'line',
+      data: data4,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    // render init block
+    const myChart4 = new Chart(
+      document.getElementById('myChart4'),
+      config4
+    );
+
+
+// SEGUNDO GRÁFICO
+
+  // setup 
+  const data5 = {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [{
+        label: 'Weekly Sales',
+        data: [18, 12, 6, 9, 12, 3, 9],
+        backgroundColor: [
+          'rgba(255, 26, 104, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(0, 0, 0, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 26, 104, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(0, 0, 0, 1)'
+        ],
+        borderWidth: 1
+      }]
+    };
+
+
+    // config 
+    const config5 = {
+      type: 'line',
+      data: data5,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    // render init block
+    const myChart5 = new Chart(
+      document.getElementById('myChart5'),
+      config5
+    );
+
+// TERCEIRO GRÁFICO
+
+ // setup 
+ const data6 = {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [{
+        label: 'Weekly Sales',
+        data: [18, 12, 6, 9, 12, 3, 9],
+        backgroundColor: [
+          'rgba(255, 26, 104, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(0, 0, 0, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 26, 104, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(0, 0, 0, 1)'
+        ],
+        borderWidth: 1
+      }]
+    };
+
+
+    // config 
+    const config6 = {
+      type: 'line',
+      data: data6,
+      options: {
+       
+}
+    };
+
+    // render init block
+    const myChart6 = new Chart(
+      document.getElementById('myChart6'),
+      config6
+    );
+
+    //papaparse JS
+    const DATA= []
+    const ECC = []
+    const CONTABILIDADE = []
+    const IPREV = []
+    const PECUNIA = []
+    const PORTABILIDADE = []
+    const ESTORNO = []
+    const PROVISIONAMENTO = []
+    const BAIXA = []  
+    const DUVIDABRBSERV = []
+    const OUTROS = []
+    const TOTAL = []
+    const labels = []
+
+    const uploadconfirm = document.getElementById('uploadconfirm').addEventListener(
+      'click', ()=> {
+      Papa.parse(document.getElementById('uploadfile').files[0], 
+      {
+        download: true,
+        header: true,
+        skipEmptyLines: true,
+        complete: function(results) {
+          //console.log(results);   (Não removi para lembrar dos passos)
+          //console.log(results.data[0].ECC); 
+          console.log(results.data.length);
+          for (i = 0; i < results.data.length; i++) {
+            DATA.push(results.data[i].DATA);
+            ECC.push(results.data[i].ECC);
+            CONTABILIDADE.push(results.data[i].CONTABILIDADE);
+            IPREV.push(results.data[i].IPREV);
+            PECUNIA.push(results.data[i].PECUNIA);
+            PORTABILIDADE.push(results.data[i].PORTABILIDADE);
+            ESTORNO.push(results.data[i].ESTORNO);
+            PROVISIONAMENTO.push(results.data[i].PROVISIONAMENTO);
+            BAIXA.push(results.data[i].BAIXA);
+            DUVIDABRBSERV.push(results.data[i].DUVIDABRBSERV);
+            OUTROS.push(results.data[i].OUTROS);
+            TOTAL.push(results.data[i].TOTAL);
+            labels.push(results.data[i].header);
+          }
+          console.log(DATA);
+          console.log(ECC);
+          console.log(CONTABILIDADE);
+          console.log(IPREV);
+          console.log(PECUNIA);
+          console.log(PORTABILIDADE);
+          console.log(PROVISIONAMENTO);
+          console.log(BAIXA);
+          console.log(DUVIDABRBSERV);
+          console.log(OUTROS);
+          console.log(TOTAL);
+          console.log(header);
+
+        }
+      });
+      });
+
+      //convertendo label(string) em constante
+      function updateChart(label){
+        myChart.data.labels = labels;
+        myChart.data.datasets[0].data = label;
+        if(label === 'DATA') {
+        myChart.data.datasets[0].data = DATA;
+        }
+        if(label === 'ECC') {
+        myChart.data.datasets[0].data = ECC;
+        }
+        if(label === 'CONTABILIDADE') {
+        myChart.data.datasets[0].data = CONTABILIDADE;
+        }
+        if(label === 'IPREV') {
+        myChart.data.datasets[0].data = IPREV;
+        }
+        if(label === 'PECUNIA') {
+        myChart.data.datasets[0].data = PECUNIA;
+        }
+        if(label === 'PORTABILIDADE') {
+        myChart.data.datasets[0].data = PROVISIONAMENTO;
+        }
+        if(label === 'ESTORNO') {
+        myChart.data.datasets[0].data = ESTORNO;
+        }
+        if(label === 'PROVISIONAMENTO') {
+        myChart.data.datasets[0].data = BAIXA;
+        }
+        if(label === 'BAIXA') {
+        myChart.data.datasets[0].data = BAIXA;
+        }
+        if(label === 'DUVIDABRBSERV') {
+        myChart.data.datasets[0].data = DUVIDABRBSERV;
+        }
+        if(label === 'OUTROS') {
+        myChart.data.datasets[0].data = OUTROS;
+        }
+        if(label === 'TOTAL') {
+        myChart.data.datasets[0].data = TOTAL;
+        }
+        console.log(label);
+        myChart.update();
+      };
+
+      
+
+   
+
+
+
+
+</script>
+
+          
+    </section>
+
+  
+
+
+</body>
+</html>
